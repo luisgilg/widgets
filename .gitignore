@@ -65,3 +65,5 @@ client/bower_components
 dist
 dev
 .*~
+.fx.html
+server/app/widgets/gallery/*.css
