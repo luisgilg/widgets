@@ -1,0 +1,79 @@
+<dom-module id="widget-zone">
+  <template>
+    <style>
+      :host {
+  display: inherit;
+}
+
+    </style>
+    <widget-container widget-index="0" parent-type="[[type]]" class$="[[commonClass]]" context="{{context}}" parent-context="{{localContext}}"
+      widget-info="{{localContext}}" parent-name="[[name]]">
+      <section id="widgetZoneSection" class$="[[commonClass]]">
+        <widget-loader context="{{context}}" class$="[[commonClass]]" widget-info="{{localContext.content}}" widget-index="0" parent-context="{{localContext}}"
+          parent-name="[[name]]">
+        </widget-loader>
+        <section>
+    </widget-container>
+  </template>
+  <script>
+    (function () {
+    Polymer.WidgetMixin(null, true, (superClass) => {
+        class WidgetZone extends superClass {
+            static get is() { return 'widget-zone'; }
+            constructor() {
+                super();
+            }
+
+            static get properties() {
+                return superClass.properties;
+                //   return extends_properties({
+                //       editClass:{
+                //           type: String,
+                //           notify: true,
+                //           computed: '_editClass(context.isEditing)'            
+                //       }
+                //   });
+            }
+
+            static get template() {
+                return superClass.extends_template(this, superClass);
+            }
+
+
+
+            connectedCallback() {
+                super.connectedCallback();
+
+
+            }
+
+            disconnectedCallback() {
+                super.disconnetedCallback();
+
+            }
+
+
+            ready() {
+                super.ready();
+                this.set('parentContext', this.context);
+                this._pushToggleEditElements(this.$.widgetZoneSection, 'editing');
+                //  this.set('context',this.context);
+                //  this.set('context.isEditing',this.context.isEditing);
+
+                //  this.shadowRoot.querySelectorAll('[widget-listener]').forEach((element)=> {
+                //    element.addEventListener('propertyChanged',this._propertyChanged.bind(this));
+                //  });
+
+
+                //  if(this.name && this.parentContext && !this.localContext){
+                //       this.set('localContext',this.parentContext[this.name]);
+                //   }
+                //this.set('localContext',this.parentContext[this.name]);
+            }
+        }
+        customElements.define(WidgetZone.is, WidgetZone);
+    });
+
+})();
+  </script>
+</dom-module>

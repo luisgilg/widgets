@@ -1,0 +1,39 @@
+<dom-module id="widget-modal">
+  <template>
+
+    <style>
+      /* @import ./index.css */
+    </style>
+
+    <section id="widgetModalSection" class$="[[commonClass]]" open="[[open]]">
+      <div id="modalOverlay"></div>
+      <dialog id="modalDialog" open="[[open]]">
+        <section id="modalSection">
+          <header>
+            <slot name="header">
+              <div id="modalHeader">
+                <span>[[modal.displayTitle]]</span>
+              </div>
+            </slot>
+          </header>
+          <div id="modalBody">
+            <slot></slot>
+          </div>
+          <footer>
+            <slot name="footer">
+              <div id="modalFooter">
+                <button id="modalDone">
+                <iron-icon icon="[[modal.doneIcon]]"></iron-icon>
+                <span>[[modal.doneTitle]]</span>
+              </button>
+              </div>
+            </slot>
+          </footer>
+        </section>
+      </dialog>
+    </section>
+  </template>
+  <script>
+    /* @import ./index.js */
+  </script>
+</dom-module>

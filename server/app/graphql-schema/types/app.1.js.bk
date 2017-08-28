@@ -1,0 +1,54 @@
+import mongoose from 'mongoose';
+
+import {
+  GraphQLObjectType,
+  GraphQLNonNull,
+  GraphQLString,
+  GraphQLID,
+  GraphQLInputObjectType
+} from 'graphql';
+
+const name = 'app'
+
+var model_schema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true
+  },
+  description: {
+    type: String
+  }
+});
+
+var model = mongoose.model(name, model_schema);
+
+
+var type = new GraphQLObjectType({
+  name: name,
+  fields: {
+    _id: {
+      type: new GraphQLNonNull(GraphQLID)
+    },
+    title: {
+      type: GraphQLString
+    },
+    description: {
+      type: GraphQLString
+    }
+  }
+});
+
+var input =  new GraphQLInputObjectType({
+  name: name + 'Input',
+  fields: {
+    _id: {type: GraphQLID},
+    title: {type: GraphQLString},
+    description: {type: GraphQLString}
+  }
+});
+
+export {
+    model,
+    type,
+    input
+}

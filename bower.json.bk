@@ -1,0 +1,23 @@
+{
+  "name": "polymer-test-2",
+  "description": "",
+  "main": "",
+  "authors": [
+    "l.gil <l.gil@AR-IT10026>"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^2.0.2",
+    "iron-icons": "^2.0.1",
+    "material-design-lite": "^1.3.0",
+    "materialize": "^0.100.1"
+  }
+}

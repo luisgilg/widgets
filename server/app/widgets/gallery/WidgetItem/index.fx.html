@@ -1,0 +1,159 @@
+<dom-module id="widget-item">
+  <template>
+    <style>
+      #widgetItemSection .widget-item-edit {
+  display: block;
+}
+#widgetItemSection .widget-item-edit .widget-item-edit-container {
+  display: block;
+}
+#widgetItemSection .widget-item-edit .widget-item-edit-menu {
+  display: none;
+  float: right;
+  position: relative;
+}
+#widgetItemSection .widget-item-edit .widget-item-edit-menu iron-icon {
+  height: 24px;
+  width: 24px;
+  filter: contrast(0%);
+}
+#widgetItemSection .widget-item-edit .widget-item-edit-menu iron-icon:hover {
+  filter: contrast(100%);
+  transform: scale(1.2);
+  cursor: pointer;
+}
+#widgetItemSection .widget-item-edit .widget-item-edit-menu .menu-container {
+  position: relative;
+  display: inline-block;
+}
+#widgetItemSection .widget-item-edit .widget-item-edit-menu .menu-container #widgetItemMenu {
+  padding: 8px;
+  margin-right: 8px;
+  margin-top: 4px;
+  border-radius: 4px;
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 32px;
+  overflow: auto;
+  box-shadow: 4px 4px 10px #777;
+  right: 0;
+  z-index: 2147483641;
+}
+#widgetItemSection .widget-item-edit .widget-item-edit-menu .menu-container #widgetItemMenu .widget-item-setting {
+  height: 24px;
+  width: 24px;
+  filter: contrast(0%);
+}
+#widgetItemSection .widget-item-edit .widget-item-edit-menu .menu-container #widgetItemMenu .widget-item-setting:hover {
+  filter: contrast(100%);
+  transform: scale(1.2);
+  cursor: pointer;
+}
+#widgetItemSection.editing .widget-item-edit .widget-item-edit-container {
+  display: inline-block;
+}
+#widgetItemSection.editing .widget-item-edit .widget-item-edit-menu {
+  display: inline-block;
+}
+#widgetItemSection.editing .widget-item-edit #widgetItemMenu {
+  display: none;
+}
+#widgetItemSection.editing .widget-item-edit #widgetItemMenu[open] {
+  display: block;
+}
+
+    </style>
+    <section id="widgetItemSection" class$="[[commonClass]]">
+      <div class="widget-item-edit">
+        <div class="widget-item-edit-container">
+          <slot>
+            <widget-loader context="{{context}}" parent-type="[[parentType]]" class$="[[commonClass]] [[parentType]]" widget-info="{{widgetInfo}}"
+              widget-index="{{widgetIndex}}" parent-context="{{parentContext}}" parent-name="[[parentName]]">
+            </widget-loader>
+          </slot>
+        </div>
+
+        <div class="widget-item-edit-menu">
+          <iron-icon class="widget-item-button" icon="more-vert" on-click="openMenu"></iron-icon>
+          <div class="menu-container">
+            <div id="widgetItemMenu">
+              <div>
+                <iron-icon title="Widget setting" class="widget-item-setting" icon="icons:settings"></iron-icon>
+              </div>
+              <slot name="menu"></slot>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </template>
+
+  <script>
+    (function () {
+    Polymer.WidgetMixin(null, true, (superClass) => {
+        class WidgetItem extends superClass {
+            static get is() { return 'widget-item'; }
+
+            load() {
+                super.load();
+                this._pushToggleEditElements(this.$.widgetItemSection, 'editing');
+            }
+
+            static get properties() {
+                //return super.properties;     
+                return superClass.extends_properties(superClass, {
+                    widgetInfo: {
+                        type: Object,
+                        notify: true,
+                    },
+                    widgetIndex: {
+                        type: String,
+                        notify: true,
+                    },
+                    open: {
+                        type: Boolean,
+                        notify: true,
+                        reflectToAttribute: true
+                    }
+                });
+            }
+
+            static get template() {
+                return superClass.extends_template(this, superClass);
+            }
+
+            static get observers() {
+                return [
+                    'isOpenChanged(open)'
+                ]
+            }
+
+            isOpenChanged(_open) {
+                return _open == true
+                    ? this.$.widgetItemMenu.setAttribute('open', '')
+                    : this.$.widgetItemMenu.removeAttribute('open');
+            }
+
+            openMenu(e) {
+                e.stopPropagation();
+                this.set('open', !this.open);
+            }
+
+            connectedCallback() {
+                super.connectedCallback();
+
+                document.addEventListener('click', e => {
+                    this.set('open', false);
+                });
+            }
+
+
+        }
+        customElements.define(WidgetItem.is, WidgetItem);
+    });
+})();
+
+  </script>
+</dom-module>

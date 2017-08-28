@@ -1,0 +1,28 @@
+<dom-module id="widget-container">
+
+  <template>
+
+    <style>
+      /* @import ./index.css */
+    </style>
+
+    <section id="widgetContainer" class$="[[commonClass]] [[parentType]]">
+      <header class="header-row">
+        <div class="header-col header-title">
+          <span>[[displayName]]</span>
+          <sub>[[config]]</sub>
+        </div>
+        <div class="header-col header-setting">
+          <iron-icon class="header-setting header-setting-button" icon="icons:more-vert"></iron-icon>
+        </div>
+      </header>
+      <slot id="widgetContainerSlot" class$="[[commonClass]] [[parentType]]">
+      </slot>
+      <footer>
+      </footer>
+    </section>
+  </template>
+  <script>
+    /* @import ./index.js */
+  </script>
+</dom-module>

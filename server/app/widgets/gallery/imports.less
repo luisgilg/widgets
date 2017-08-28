@@ -1,0 +1,68 @@
+@shadow-color:#777;
+@box-border-color:lightgrey;
+@max-z-index:2147483647;
+
+@header-height:36px;
+@footer-height:28px;
+@header-padding-top:8px;
+@header-padding-lat:8px;
+@header-title-sep: @box-border-color solid 1px;
+@header-title-sep-margin:4px;
+
+@work-area-min-height:36px;
+@work-area-background-color:white;
+@dialog-z-index : @max-z-index;
+@modal-overlay-z-index : (@dialog-z-index - 3);
+@menu-z-index : (@modal-overlay-z-index - 3);
+@box-z-index : (@menu-z-index - 3);
+@wdiget-overlay-z-index : (@box-z-index - 3);
+
+@dialog-background-color:white;
+@dialog-border: @box-border-color solid 2px;
+@dialog-border-radius:8px;
+
+
+@box-inside: 4px 8px 4px 8px;
+@box-header-font-style: italic;
+@box-area: 4px 4px 10px;
+@box-shadow: @box-area @shadow-color;
+@box-border: @box-border-color dashed 2px;
+@sub-box-area: 2px 2px 5px;
+@sub-box-shadow: @box-area @shadow-color;
+@sub-box-border: @box-border-color dashed 1px;
+
+.icon-button(){
+    filter:contrast(0%);
+
+    &:hover{
+        filter: contrast(100%);
+        transform: scale(1.2);
+        cursor: pointer;
+    }
+}
+.overlay(){
+    position: fixed; /* Sit on top of the page content */
+    display: none; /* Hidden by default */
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0; 
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+}
+.icon-button-s(){
+     height: 16px;
+     width: 16px;
+     .icon-button
+}
+.icon-button-m(){
+     height: 24px;
+     width: 24px;
+     .icon-button
+}
+.icon-button-l(){
+     height: 24px;
+     width: 24px;
+     .icon-button
+}

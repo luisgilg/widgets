@@ -1,0 +1,20 @@
+{
+  "name": "widgets",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Luis Gil"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^2.0.2"
+  }
+}

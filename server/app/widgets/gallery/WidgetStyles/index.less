@@ -1,0 +1,28 @@
+@import "../imports.less";
+
+:host{
+    all:initial;
+    // font-size: initial;
+    // padding: initial;
+    // margin: initial;
+    // border: initial;
+    // background-color: initial;
+    // display: initial;
+    // color: initial;
+
+    font-family: Roboto,RobotoDraft,Helvetica,Arial,sans-serif;
+    line-height: normal;
+        
+    z-index: inherit;
+    max-width: inherit;
+    max-height: inherit;
+    min-width: inherit;
+    min-height: inherit;
+    width: inherit;
+    height: inherit;
+    
+}
+
+:host([editing]){
+    z-index: @box-z-index;
+}

@@ -1,0 +1,64 @@
+#widgetModalSection #modalOverlay {
+  position: fixed;
+  /* Sit on top of the page content */
+  display: none;
+  /* Hidden by default */
+  width: 100%;
+  /* Full width (cover the whole page) */
+  height: 100%;
+  /* Full height (cover the whole page) */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Black background with opacity */
+}
+#widgetModalSection[open] #modalOverlay {
+  display: block;
+  z-index: 2147483644;
+}
+#widgetModalSection #modalDialog {
+  padding: 4px 8px 4px 8px;
+  margin: 0px;
+  background-color: white;
+  border: lightgrey solid 2px;
+  box-shadow: 4px 4px 10px #777;
+  border-radius: 8px;
+}
+#widgetModalSection #modalDialog #modalHeader {
+  display: block;
+  min-height: 36px;
+  padding-top: 4px;
+  font-style: italic;
+  color: #777;
+  border-bottom: lightgrey solid 1px;
+  margin-bottom: 4px;
+}
+#widgetModalSection #modalDialog #modalFooter {
+  display: block;
+  min-height: 36px;
+  border-top: lightgrey solid 1px;
+  margin-top: 4px;
+  padding-top: 4px;
+}
+#widgetModalSection #modalDialog #modalFooter #modalDone {
+  float: right;
+}
+#widgetModalSection #modalDialog #modalFooter #modalDone iron-icon {
+  height: 24px;
+  width: 24px;
+  filter: contrast(0%);
+}
+#widgetModalSection #modalDialog #modalFooter #modalDone iron-icon:hover {
+  filter: contrast(100%);
+  transform: scale(1.2);
+  cursor: pointer;
+}
+#widgetModalSection #modalDialog[open] {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2147483647;
+}

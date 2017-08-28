@@ -1,0 +1,195 @@
+<dom-module id="widget-stack-panel">
+    <template>
+
+        <style>
+            #widgetStackPanelSection .container.vertical {
+  display: block;
+}
+#widgetStackPanelSection .container.horizontal {
+  display: inline-flex;
+}
+#widgetStackPanelSection .container .widget-item-container.vertical {
+  display: block;
+}
+#widgetStackPanelSection .container .widget-item-container.horizontal {
+  display: inline-block;
+}
+#widgetStackPanelSection .container .widget-item-container .remove-widget {
+  height: 24px;
+  width: 24px;
+  filter: contrast(0%);
+}
+#widgetStackPanelSection .container .widget-item-container .remove-widget:hover {
+  filter: contrast(100%);
+  transform: scale(1.2);
+  cursor: pointer;
+}
+#widgetStackPanelSection footer {
+  display: none;
+  height: 28px;
+}
+#widgetStackPanelSection footer .footer-col {
+  display: block;
+}
+#widgetStackPanelSection footer .footer-col.footer-setting {
+  float: right;
+  padding-right: 8px;
+}
+#widgetStackPanelSection footer .footer-col.footer-setting iron-icon {
+  margin-top: -12px;
+  height: 24px;
+  width: 24px;
+  filter: contrast(0%);
+}
+#widgetStackPanelSection footer .footer-col.footer-setting iron-icon:hover {
+  filter: contrast(100%);
+  transform: scale(1.2);
+  cursor: pointer;
+}
+#widgetStackPanelSection.editing .container {
+  min-height: 36px;
+  border: lightgrey dashed 1px;
+  padding: 4px 8px 4px 8px;
+}
+#widgetStackPanelSection.editing .container .widget-item-container {
+  border-bottom: lightgrey dashed 1px;
+  padding-bottom: 8px;
+}
+#widgetStackPanelSection.editing .container .widget-item-container:last-child {
+  border-bottom: none;
+}
+#widgetStackPanelSection.editing footer {
+  display: block;
+}
+
+        </style>
+
+        <widget-container config="([[localContext.orientation]])" widget-index="0" parent-type="[[type]]" class$="[[commonClass]] sub-container"
+            context="{{context}}" parent-context="{{parentContext}}" parent-name="[[name]]" widget-info="{{localContext}}">
+            <section id="widgetStackPanelSection" class$="[[commonClass]]">
+                <div class$="container [[localContext.orientation]]">
+                    <template id="wigetCollection" is="dom-repeat" items="{{localContext.content}}" as="widget" index-as="widget_index">
+                        <div class$="widget-item-container [[localContext.orientation]]">
+                            <widget-item context="{{context}}" parent-context="{{localContext}}" widget-info="{{widget}}" parent-type="[[type]]" widget-index="{{widget_index}}">
+                                <!-- class$="[[commonClass]] [[localContext.orientation]]" 
+                        widget-info="{{widget}}" widget-index="{{widget_index}}" 
+                        parent-context="{{localContext}}" parent-name="[[name]]" -->
+
+                                <widget-loader class$="[[commonClass]] [[localContext.orientation]]" widget-info="{{widget}}" parent-type="[[type]]" widget-index="{{widget_index}}"
+                                    parent-context="{{localContext}}" parent-name="[[name]]">
+                                </widget-loader>
+
+                                <div slot="menu">
+                                    <iron-icon data-widget-index$="[[widget_index]]" class="remove-widget" title="Remove widget" icon="icons:remove-circle" on-click="removeWidget"></iron-icon>
+                                </div>
+                            </widget-item>
+                        </div>
+                    </template>
+                </div>
+                <footer class="footer-row">
+                    <div class="footer-col footer-setting">
+                        <iron-icon id="addWidgetButton" title="Add widget" class="footer-setting" icon="icons:add-circle"></iron-icon>
+                    </div>
+                </footer>
+            </section>
+        </widget-container>
+        <widget-modal context="{{context}}" parent-type="[[type]]" parent-context="{{localContext}}" parent-name="[[name]]" class$="[[commonClass]]"
+            open="{{showAddWidgetModal}}" modal="{{addWidgetModal}}">
+            <div style="min-width: 200px;min-height: 200px;">
+                <p>Test</p>
+            </div>
+        </widget-modal>
+
+    </template>
+    <script>
+        (function () {
+    Polymer.WidgetMixin(null, true, (superClass) => {
+        class WidgetStackPanel extends superClass {
+            static get is() { return 'widget-stack-panel'; }
+            constructor() {
+                super();
+            }
+
+            static get properties() {
+                //return super.properties;     
+                return superClass.extends_properties(superClass, {
+                    addWidgetModal: {
+                        type: Object,
+                        notify: true,
+                    },
+                    showAddWidgetModal: {
+                        type: Boolean,
+                        notify: true
+                    }
+                });
+            }
+
+            static get template() {
+                return superClass.extends_template(this, superClass);
+            }
+
+            addWidgetCallback(_modal, _done) {
+                return _done(true);
+            }
+
+            removeWidget(e) {
+                var index = e.target.getAttribute('data-widget-index');
+                this.splice('localContext.content', index, 1);
+            }
+
+            ready() {
+                super.ready();
+                var _addWidgetModal = {
+                    displayTitle: 'Add widget',
+                    doneTitle: 'Done',
+                    doneIcon: 'icons:done',
+                    doneCallback: (_modal, _done) => {
+                        this.addWidgetCallback(_modal, _done);
+                    }
+                };
+
+                this.set('showAddWidgetModal', false);
+
+                this.set('addWidgetModal', _addWidgetModal);
+
+            }
+
+            load() {
+                super.load();
+                this._pushToggleEditElements(this.$.widgetStackPanelSection, 'editing');
+            }
+
+            connectedCallback() {
+                super.connectedCallback();
+                this.$.addWidgetButton.addEventListener('click', e => {
+                    this.set('showAddWidgetModal', !this.showAddWidgetModal);
+                });
+            }
+
+            disconnectedCallback() {
+                super.disconnetedCallback();
+
+            }
+
+            // onPropertyChanged(e){
+            //     super.onPropertyChanged(e);
+            // if(!this._childElement){
+            //     return;
+            // }
+
+            // if(e.detail.property == 'context.isEditing'){
+            //     this._childElement.notifyPath('editing');
+            // }
+
+            // this._childElement.notifyPath(e.detail.property);
+            // }
+
+        }
+
+        customElements.define(WidgetStackPanel.is, WidgetStackPanel);
+    });
+
+
+})();
+    </script>
+</dom-module>

@@ -1,0 +1,18 @@
+<dom-module id="widget-zone">
+  <template>
+    <style>
+      /* @import ./index.css */
+    </style>
+    <widget-container widget-index="0" parent-type="[[type]]" class$="[[commonClass]]" context="{{context}}" parent-context="{{localContext}}"
+      widget-info="{{localContext}}" parent-name="[[name]]">
+      <section id="widgetZoneSection" class$="[[commonClass]]">
+        <widget-loader context="{{context}}" class$="[[commonClass]]" widget-info="{{localContext.content}}" widget-index="0" parent-context="{{localContext}}"
+          parent-name="[[name]]">
+        </widget-loader>
+        <section>
+    </widget-container>
+  </template>
+  <script>
+    /* @import ./index.js */
+  </script>
+</dom-module>

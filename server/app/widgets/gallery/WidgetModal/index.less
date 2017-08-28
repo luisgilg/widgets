@@ -1,0 +1,55 @@
+@import "../imports.less";
+#widgetModalSection{
+    #modalOverlay{
+       .overlay
+    }
+
+    &[open]{
+        #modalOverlay{
+            display: block;
+            z-index: @modal-overlay-z-index;
+        }
+    }
+    #modalDialog{
+        padding: @box-inside;
+        margin: 0px;
+        background-color: @dialog-background-color;
+        border: @dialog-border;
+        box-shadow: @box-shadow;
+        border-radius: @dialog-border-radius;
+        #modalHeader{
+            display: block;
+            min-height: @header-height;
+            padding-top: @header-title-sep-margin;
+            font-style: @box-header-font-style;
+            color: @shadow-color;
+            border-bottom: @header-title-sep;
+            margin-bottom: @header-title-sep-margin;
+        }
+
+        #modalFooter{
+            display: block;
+            min-height: @header-height;
+
+            border-top: @header-title-sep;
+            margin-top: @header-title-sep-margin;
+            padding-top: @header-title-sep-margin;
+            
+            #modalDone{
+                float: right;
+                iron-icon{
+                    .icon-button-m
+                }
+            }
+        }
+        
+        &[open]{
+            //max-height: calc(100% - 100px);            
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: @dialog-z-index;
+        }
+    }
+}

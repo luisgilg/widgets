@@ -1,0 +1,16 @@
+@charset "utf-8";
+/*
+Template Name: GreyScale Business
+Author: <a href="http://www.os-templates.com/">OS Templates</a>
+Author URI: http://www.os-templates.com/
+Licence: Free to use under our free template licence terms
+Licence URI: http://www.os-templates.com/template-terms
+File: Navigation CSS
+*/
+
+#topnav{display:block; position:absolute; top:57px; right:0;}
+#topnav ul{margin:0; padding:0; list-style:none;}
+#topnav li{display:inline; margin:0 15px 0 0; padding:0;}
+#topnav li.last{margin-right:0;}
+#topnav li a{margin:0; padding:0; color:#FFFFFF; background-color:#181818;}
+#topnav li a:hover, #topnav li a.active{color:#FF9900; background-color:#181818;}

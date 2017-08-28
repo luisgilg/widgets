@@ -1,0 +1,16 @@
+@import "../imports.less";
+#widgetEditSection{
+    display: inline;
+    #modalOverlay{
+        .overlay
+    }
+
+    &.editing{
+        // z-index: @box-z-index;
+
+        #modalOverlay{
+            display: block;
+            z-index: @wdiget-overlay-z-index;
+        }        
+    }
+}

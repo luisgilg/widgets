@@ -1,0 +1,48 @@
+<dom-module id="widget-stack-panel">
+    <template>
+
+        <style>
+            /* @import ./index.css */
+        </style>
+
+        <widget-container config="([[localContext.orientation]])" widget-index="0" parent-type="[[type]]" class$="[[commonClass]] sub-container"
+            context="{{context}}" parent-context="{{parentContext}}" parent-name="[[name]]" widget-info="{{localContext}}">
+            <section id="widgetStackPanelSection" class$="[[commonClass]]">
+                <div class$="container [[localContext.orientation]]">
+                    <template id="wigetCollection" is="dom-repeat" items="{{localContext.content}}" as="widget" index-as="widget_index">
+                        <div class$="widget-item-container [[localContext.orientation]]">
+                            <widget-item context="{{context}}" parent-context="{{localContext}}" widget-info="{{widget}}" parent-type="[[type]]" widget-index="{{widget_index}}">
+                                <!-- class$="[[commonClass]] [[localContext.orientation]]" 
+                        widget-info="{{widget}}" widget-index="{{widget_index}}" 
+                        parent-context="{{localContext}}" parent-name="[[name]]" -->
+
+                                <widget-loader class$="[[commonClass]] [[localContext.orientation]]" widget-info="{{widget}}" parent-type="[[type]]" widget-index="{{widget_index}}"
+                                    parent-context="{{localContext}}" parent-name="[[name]]">
+                                </widget-loader>
+
+                                <div slot="menu">
+                                    <iron-icon data-widget-index$="[[widget_index]]" class="remove-widget" title="Remove widget" icon="icons:remove-circle" on-click="removeWidget"></iron-icon>
+                                </div>
+                            </widget-item>
+                        </div>
+                    </template>
+                </div>
+                <footer class="footer-row">
+                    <div class="footer-col footer-setting">
+                        <iron-icon id="addWidgetButton" title="Add widget" class="footer-setting" icon="icons:add-circle"></iron-icon>
+                    </div>
+                </footer>
+            </section>
+        </widget-container>
+        <widget-modal context="{{context}}" parent-type="[[type]]" parent-context="{{localContext}}" parent-name="[[name]]" class$="[[commonClass]]"
+            open="{{showAddWidgetModal}}" modal="{{addWidgetModal}}">
+            <div style="min-width: 200px;min-height: 200px;">
+                <p>Test</p>
+            </div>
+        </widget-modal>
+
+    </template>
+    <script>
+        /* @import ./index.js */
+    </script>
+</dom-module>

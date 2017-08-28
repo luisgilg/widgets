@@ -1,0 +1,98 @@
+<dom-module id="widget-context">
+  <template>
+  </template>
+  <script>
+(function () {
+
+    class WidgetContext extends Polymer.Element {
+        constructor() {
+            super();
+
+            if (!WidgetContext.instances) {
+                WidgetContext.instances = [];
+            }
+
+            WidgetContext.instances.push(this);
+        }
+
+        static get is() { return 'widget-context'; }
+        static get properties() {
+            return {
+                parentType: {
+                    type: String,
+                    notify: true,
+                },
+                context: {
+                    type: Object,
+                    notify: true,
+                },
+                message: {
+                    type: String,
+                    notify: true,
+                },
+            }
+        }
+
+        static get observers() {
+            return [
+                '_onContextChange(context.*)'
+            ]
+        }
+
+        _onContextChange(contextProperty) {
+
+            var detail = {
+                property: contextProperty.path,
+                value: contextProperty.value
+            };
+
+            if (!WidgetContext.instances) return;
+
+            WidgetContext.instances.forEach(function (element) {
+                element.dispatchEvent(new CustomEvent('contextChanged', {
+                    detail: detail
+                }));
+            });
+        }
+
+        static get Context() {
+            if (WidgetContext.GetContextPromise) return WidgetContext.GetContextPromise;
+
+            WidgetContext.GetContextPromise = new Promise((resolve, reject) => {
+                if (WidgetContext._context) {
+                    return resolve(WidgetContext._context);
+                }
+
+                if (WidgetContext.GetContextResolver) {
+                    resolve(WidgetContext.GetContextResolver())
+                }
+
+                WidgetContext.GetContextResolver = resolve;
+            });
+
+            return WidgetContext.GetContextPromise;
+        }
+
+        static set Context(_context) {
+            var stx = WidgetContext._context || _context;
+            WidgetContext._context = stx;
+            if (!WidgetContext.GetContextResolver) {
+                WidgetContext.GetContextResolver = (() => { return stx })
+            }
+            return WidgetContext.GetContextResolver(stx);
+        }
+
+        ready() {
+            super.ready();
+            WidgetContext.Context.then((_context) => {
+                this.set('context', _context);
+            });
+        }
+    }
+
+    customElements.define(WidgetContext.is, WidgetContext);
+    Polymer.WidgetContext = WidgetContext;
+
+})();
+  </script>
+</dom-module>

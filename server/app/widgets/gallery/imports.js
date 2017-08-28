@@ -1,0 +1,102 @@
+
+(function(){
+
+WidgetMixin = function (superClass, isExtendable, cb) {
+    var currentParent = superClass || Polymer.WidgetElement;
+
+    var settingPromise = currentParent.Setting;
+
+    if (!settingPromise) {
+        return cb(Polymer.Element);
+    }
+
+    settingPromise.then((setting) => {
+
+
+        var _extends = [];
+        var bottom_extends = [];
+
+        var _not_extendable = ((_superClass) => {
+            return class extends _superClass {
+                constructor() {
+                    super();
+                }
+
+            }
+        });
+
+        var body_ext = ((_superClass) => {
+            let memoizedTemplate;
+            return class extends _superClass {
+                constructor() {
+                    super();
+
+                    this._extend_managers = new Polymer.ExtendsManager(this);
+                }
+
+                static extends_properties(_super, new_props) {
+
+                    var props = (_super && _super.properties)? _super.properties : (_superClass.properties || []);
+
+                    for (var key in new_props) {
+                        if (new_props.hasOwnProperty(key)) {
+                            props[key] = new_props[key];
+                        }
+                    }
+
+                    return props;
+                }
+
+                // static get properties() {
+                //     return _superClass.properties;
+                // }
+
+                // static get template(){
+                //     return _superClass.template;
+                // }
+
+                static extends_template(_current, _super) {
+                    if (memoizedTemplate) {
+                        return memoizedTemplate;
+                    }
+                    
+                    memoizedTemplate = Polymer.DomModule.import(_current.is, 'template');
+                    let superTemplateContents = document.importNode(_super.template.content, true);
+
+                    // let div = document.createElement('div');
+                    // div.innerHTML = _super.template;
+                    memoizedTemplate.content.appendChild(superTemplateContents);
+
+                    return memoizedTemplate;
+                }
+            }
+        });
+
+
+        if (setting && setting.isExtendable) {
+            _extends = _extends.concat(setting.top_extends);
+        }
+
+        if (isExtendable && isExtendable == true && setting && setting.isExtendable == true && Polymer.ExtendsManager && Polymer.ExtendsManager.ExtendableWidgetMixin) {
+            _extends.push(Polymer.ExtendsManager.ExtendableWidgetMixin);
+        } else {
+            _extends.push(_not_extendable);
+        }
+
+        _extends.push(body_ext)
+
+        if (setting && setting.isExtendable) {
+            _extends = _extends.concat(setting.bottom_extends);
+        }
+
+        _extends.forEach(ext => {
+            currentParent = ext(currentParent)
+        });
+
+        return (cb(currentParent));
+    });
+}
+
+Polymer.WidgetMixin = WidgetMixin;
+
+})();

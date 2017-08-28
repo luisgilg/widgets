@@ -1,0 +1,84 @@
+@import "../imports.less";
+#widgetStackPanelSection{
+    .container{            
+        &.vertical{
+            display: block;
+        }
+        &.horizontal{
+            display: inline-flex;
+        }
+        .widget-item-container{
+            &.vertical{
+                display: block;
+            }
+            &.horizontal{
+                display: inline-block;                
+            }
+            .remove-widget{
+                .icon-button-m
+            }
+
+            // .widget-item-edit{
+            //     display: block;
+            //     .widget-item-edit-container{
+            //         display: block;
+            //     }
+            //     .widget-item-edit-remove{
+            //         display: none;
+            //         float: right;
+            //         iron-icon{
+            //             .icon-button-m
+            //         }
+            //     }
+            // }
+        }
+    }
+
+    footer{        
+        display: none;
+        height: @footer-height;
+
+        .footer-col{
+            display: block;
+                                
+            &.footer-setting{
+                float: right;
+                padding-right: @header-padding-lat;
+                iron-icon{
+                    margin-top: -12px;
+                    .icon-button-l
+                }
+            }
+        }                   
+    }
+
+    &.editing{
+        .container{
+            min-height: @work-area-min-height;
+            border:  @sub-box-border;
+            padding: @box-inside;
+
+            .widget-item-container{
+                border-bottom: @sub-box-border;
+                padding-bottom: @header-padding-top;
+                
+                // .widget-item-edit{
+                //     .widget-item-edit-container{
+                //         display: inline-block;
+                //     }
+                //     .widget-item-edit-remove{
+                //         display: inline-block;
+                //     }
+                // }
+
+                &:last-child{
+                    border-bottom: none;
+                }
+            }
+        }
+
+        footer{
+            display: block;
+        }    
+    }
+}

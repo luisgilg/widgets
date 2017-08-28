@@ -1,0 +1,35 @@
+<dom-module id="widget-item">
+  <template>
+    <style>
+      /* @import ./index.css */
+    </style>
+    <section id="widgetItemSection" class$="[[commonClass]]">
+      <div class="widget-item-edit">
+        <div class="widget-item-edit-container">
+          <slot>
+            <widget-loader context="{{context}}" parent-type="[[parentType]]" class$="[[commonClass]] [[parentType]]" widget-info="{{widgetInfo}}"
+              widget-index="{{widgetIndex}}" parent-context="{{parentContext}}" parent-name="[[parentName]]">
+            </widget-loader>
+          </slot>
+        </div>
+
+        <div class="widget-item-edit-menu">
+          <iron-icon class="widget-item-button" icon="more-vert" on-click="openMenu"></iron-icon>
+          <div class="menu-container">
+            <div id="widgetItemMenu">
+              <div>
+                <iron-icon title="Widget setting" class="widget-item-setting" icon="icons:settings"></iron-icon>
+              </div>
+              <slot name="menu"></slot>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </template>
+
+  <script>
+    /* @import ./index.js */
+  </script>
+</dom-module>
